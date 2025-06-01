@@ -5,6 +5,7 @@ const experiences = [
         company: "Zomato",
         location: "Gurgaon",
         duration: "Dec'24 – Apr'25",
+        logo: "https://b.zmtcdn.com/images/logo/zomato_logo_2017.png",
         description: [
             "Conducted user research, benchmarked it with 15+ apps across the globe, wrote 4 PRDs, and pitched 'Food Profile'",
             "Ideated 4+ growth initiatives (N2C, affordable meals, influencer program), driving repeat OV by 23% & first-time orders by 15%",
@@ -16,6 +17,7 @@ const experiences = [
         company: "Reway",
         location: "DTU - IIF startup",
         duration: "Sept'24 – Nov'24",
+        logo: "./assets/reway.png",
         description: [
             "Led 0→1 design of Reway's e-waste marketplace - ran 10+ user interviews to define personas, journeys & prioritized MVP features",
             "Grew DAUs 2x in 15 days via rapid rollout of in-app news & insights feature, boosting engagement among early adopters",
@@ -28,6 +30,7 @@ const experiences = [
         company: "Grant Thornton",
         location: "New Delhi",
         duration: "May'24 – July'24",
+        logo: "https://www.grantthornton.in/globalassets/1.-member-firms/india/assets/logos/gt_logo_horizontal.png",
         description: [
             "Prepared an in-depth analysis of 370+ mainboard IPOs over the past 12 years using Chittorgarh, S&P Capital IQ, and Private Circle",
             "Conducted company profiling & segmentation to identify business development opportunities worth ₹10 Cr",
@@ -39,6 +42,7 @@ const experiences = [
         company: "KPMG India",
         location: "Hyderabad",
         duration: "Dec'23 – Jan'24",
+        logo: "./assets/kpmg.png",
         description: [
             "Proposed a reduction of INR 50 lakh yearly cost through competitive benchmarking on 15+ Top SKUs by supervising 6 market visits",
             "Performed a comprehensive work content analysis across 24 manufacturing lines in 3 plants, revealing potential cost saving of 1.3 Cr",
@@ -47,22 +51,26 @@ const experiences = [
     }
 ];
 
-const achievements = [
-    {
-        title: "Pre-Finalist (Top 1%)",
-        description: "BrAINWARS 2024 - a prestigious case competition by Bain & Company (BCN)"
+// Achievement data
+const achievements = [    {
+        title: "Pre-Finalist (Top 1%) - BrAINWARS 2024",
+        description: "Among 1200+ teams nationwide in a prestigious case competition by Bain & Company (BCN)",
+        logo: "./assets/bcn.png"
     },
     {
-        title: "Campus Winner",
-        description: "ZS Campus Beats 2024 – secured top spot in a business case challenge conducted by ZS Associates"
+        title: "Campus Winner - ZS Campus Beats 2024",
+        description: "Secured top spot in a business case challenge conducted by ZS Associates",
+        logo: "./assets/ZS.png"
     },
     {
-        title: "National Finalist (Top 10)",
-        description: "IIM Lucknow's Marketing Case Competition – shortlisted among 950+ teams across India"
+        title: "National Finalist (Top 10) - IIM Lucknow",
+        description: "Marketing Case Competition – shortlisted among 950+ teams across India",
+        logo: "./assets/iiml.png"
     },
     {
         title: "United Nations Millennium Fellow 2023",
-        description: "International fellowship by the United Nations, for social-impact driven innovation"
+        description: "International fellowship by the United Nations, for social-impact driven innovation",
+        logo: "./assets/un.png"
     }
 ];
 
@@ -90,28 +98,92 @@ function updateProfile(data) {
     githubLink.href = data.html_url;
 }
 
+// Lazy loading observer
+const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.add('loaded');
+            observer.unobserve(img);
+        }
+    });
+}, {
+    rootMargin: '50px 0px',
+    threshold: 0.1
+});
+
 function updateExperience() {
     const experienceContainer = document.getElementById('experience-container');
-    experienceContainer.innerHTML = experiences.map(exp => `
-        <div class="experience-item">
-            <h3>${exp.title} - ${exp.company}</h3>
-            <h4>${exp.location} | ${exp.duration}</h4>
-            <ul>
-                ${exp.description.map(desc => `<li>${desc}</li>`).join('')}
-            </ul>
-        </div>
-    `).join('');
+    experienceContainer.innerHTML = '';
+
+    experiences.forEach(exp => {
+        const item = document.createElement('div');
+        item.className = 'experience-item';
+
+        item.innerHTML = `
+            <div class="experience-item-content">
+                <div class="experience-header">
+                    <img data-src="${exp.logo}" alt="${exp.company}" class="company-logo lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                    <div class="experience-details">
+                        <h3 class="experience-title">${exp.title}</h3>
+                        <div class="company-name">${exp.company} - ${exp.location}</div>
+                        <div class="experience-duration">${exp.duration}</div>
+                    </div>
+                </div>
+                <div class="experience-description">
+                    <ul>
+                        ${exp.description.map(desc => `<li>${desc}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+        `;
+
+        experienceContainer.appendChild(item);
+        
+        // Observe the newly added image
+        const lazyImage = item.querySelector('.lazy');
+        if (lazyImage) {
+            lazyImageObserver.observe(lazyImage);
+        }
+    });
 }
 
 function updateAchievements() {
     const achievementsContainer = document.getElementById('achievements-container');
     achievementsContainer.innerHTML = achievements.map(achievement => `
         <div class="achievement-item">
-            <h3>${achievement.title}</h3>
-            <p>${achievement.description}</p>
+            <div class="achievement-logo">
+                <img data-src="${achievement.logo}" alt="${achievement.title}" class="lazy achievement-icon" 
+                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+            </div>
+            <div class="achievement-content">
+                <h3 class="achievement-title">${achievement.title}</h3>
+                <p class="achievement-description">${achievement.description}</p>
+            </div>
         </div>
     `).join('');
+
+    // Observe all lazy loaded images in achievements
+    const lazyImages = achievementsContainer.querySelectorAll('.lazy');
+    lazyImages.forEach(img => lazyImageObserver.observe(img));
 }
+
+// Real-time clock update
+function updateRealTime() {
+    const timeElement = document.getElementById('real-time');
+    const options = {
+        timeZone: 'Asia/Kolkata',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+    };
+    timeElement.textContent = new Date().toLocaleTimeString('en-US', options) + ' IST';
+}
+
+// Update clock every second
+setInterval(updateRealTime, 1000);
+updateRealTime(); // Initial call
 
 // Initialize everything when the page loads
 document.addEventListener('DOMContentLoaded', () => {
