@@ -13,6 +13,8 @@
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
     --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    --container-width: 1200px;
+    --section-spacing: 6rem;
 }
 
 * {
@@ -29,6 +31,101 @@ body {
     color: var(--primary);
     background: var(--secondary);
     overflow-x: hidden;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--primary);
+}
+
+/* Company Logos Trail */
+.company-logos-trail {
+    padding: var(--section-spacing) 0;
+    background: var(--gray-100);
+    position: relative;
+    overflow: hidden;
+}
+
+.company-logos-trail::before,
+.company-logos-trail::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 15%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.company-logos-trail::before {
+    left: 0;
+    background: linear-gradient(to right, var(--gray-100), transparent);
+}
+
+.company-logos-trail::after {
+    right: 0;
+    background: linear-gradient(to left, var(--gray-100), transparent);
+}
+
+.logos-wrapper {
+    position: relative;
+    padding: 2rem 0;
+    overflow: hidden;
+}
+
+.company-logos-inner {
+    display: flex;
+    animation: scrollLogos 30s linear infinite;
+    gap: 4rem;
+}
+
+.logo-item {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: var(--secondary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.logo-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.logo-item img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: var(--transition);
+}
+
+.logo-item:hover img {
+    filter: grayscale(0);
+    opacity: 1;
+}
+
+@keyframes scrollLogos {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-50% - 2rem));
+    }
 }
 
 /* Navbar */
@@ -174,57 +271,6 @@ body {
 
 .profile-image:hover {
     transform: translateY(-5px) scale(1.02);
-}
-
-/* Company Logos Trail */
-.company-logos-trail {
-    width: 100%;
-    padding: 4rem 0;
-    background: var(--gray-100);
-    overflow: hidden;
-    position: relative;
-}
-
-.company-logos-trail::before,
-.company-logos-trail::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 200px;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.company-logos-trail::before {
-    left: 0;
-    background: linear-gradient(to right, var(--gray-100) 0%, transparent 100%);
-}
-
-.company-logos-trail::after {
-    right: 0;
-    background: linear-gradient(to left, var(--gray-100) 0%, transparent 100%);
-}
-
-.company-logos-inner {
-    display: flex;
-    animation: scroll 40s linear infinite;
-    gap: 6rem;
-    padding: 2rem 0;
-    align-items: center;
-}
-
-.company-logo-small {
-    height: 45px;
-    filter: grayscale(0.8);
-    opacity: 0.7;
-    transition: var(--transition);
-}
-
-.company-logo-small:hover {
-    filter: grayscale(0);
-    opacity: 1;
-    transform: scale(1.15);
 }
 
 /* Experience Section */
@@ -412,12 +458,6 @@ footer {
     text-align: center;
     padding: 2rem;
     margin-top: 4rem;
-}
-
-/* Animations */
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
 }
 
 /* Media Queries */
