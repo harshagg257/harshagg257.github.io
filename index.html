@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>    <nav class="navbar">
+<body>
+    <nav class="navbar">
         <div class="nav-content">
-            <div class="logo">HA</div>
+            <a href="#" class="logo">HA</a>
             <div class="nav-links">
                 <a href="#experience">Experience</a>
                 <a href="#achievements">Achievements</a>
@@ -37,12 +38,20 @@
                         <i class="fab fa-github"></i>
                     </a>
                 </div>
-            </div>            <div class="hero-image">
+            </div>
+            <div class="hero-image">
                 <img id="profile-image" alt="Harsh Agarwal" class="profile-image" loading="eager">
             </div>
         </div>
-    </header>    <div class="company-logos-trail">
+    </header>
+
+    <div class="company-logos-trail">
         <div class="company-logos-inner">
+            <img src="https://b.zmtcdn.com/images/logo/zomato_logo_2017.png" alt="Zomato" class="company-logo-small" loading="lazy">
+            <img src="https://www.grantthornton.in/globalassets/1.-member-firms/india/assets/logos/gt_logo_horizontal.png" alt="Grant Thornton" class="company-logo-small" loading="lazy">
+            <img src="./assets/kpmg.png" alt="KPMG" class="company-logo-small" loading="lazy">
+            <img src="./assets/reway.png" alt="Reway" class="company-logo-small" loading="lazy">
+            <!-- Duplicate logos for infinite scroll effect -->
             <img src="https://b.zmtcdn.com/images/logo/zomato_logo_2017.png" alt="Zomato" class="company-logo-small" loading="lazy">
             <img src="https://www.grantthornton.in/globalassets/1.-member-firms/india/assets/logos/gt_logo_horizontal.png" alt="Grant Thornton" class="company-logo-small" loading="lazy">
             <img src="./assets/kpmg.png" alt="KPMG" class="company-logo-small" loading="lazy">
@@ -56,14 +65,19 @@
             <div class="experience-timeline" id="experience-container">
                 <!-- Will be populated by JavaScript -->
             </div>
-        </section>        <section id="education" class="section">
+        </section>
+
+        <section id="education" class="section">
             <h2>Education</h2>
-            <div class="education-card">
-                <div class="education-header">
-                    <h3>Delhi Technological University (Formerly DCE)</h3>
-                    <span class="duration">2021 - 2025</span>
+            <div class="education-card experience-item">
+                <div class="experience-header">
+                    <img src="./assets/dtu.png" alt="DTU" class="company-logo">
+                    <div class="experience-details">
+                        <h3>Delhi Technological University</h3>
+                        <div class="company-name">Bachelor of Technology (B.Tech)</div>
+                        <div class="experience-duration">2021 - 2025</div>
+                    </div>
                 </div>
-                <p class="degree">Bachelor of Technology (B.Tech)</p>
                 <p class="grades">CGPA: 8.53/10</p>
             </div>
         </section>
@@ -80,9 +94,11 @@
             <div class="projects-grid" id="repositories-container">
                 <!-- Will be populated by JavaScript -->
             </div>
-        </section>        <section id="buzz" class="section buzz-section">
+        </section>
+
+        <section id="buzz" class="section buzz-section">
             <h2>What's the Buzz</h2>
-            <div class="buzz-grid" id="buzz-container">
+            <div class="buzz-grid">
                 <div class="buzz-card">
                     <img src="./assets/abhinav.png" alt="Recommendation from Abhinav" class="recommendation-image" loading="lazy">
                 </div>
