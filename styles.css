@@ -57,11 +57,16 @@ body {
     font-weight: 700;
     color: var(--primary);
     text-decoration: none;
+    transition: var(--transition);
+}
+
+.logo:hover {
+    color: var(--accent);
 }
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .nav-links a {
@@ -70,10 +75,26 @@ body {
     font-weight: 500;
     transition: var(--transition);
     font-size: 0.95rem;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--accent);
+    transition: var(--transition);
 }
 
 .nav-links a:hover {
     color: var(--primary);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 /* Hero Section */
@@ -88,7 +109,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 4rem;
+    gap: 6rem;
 }
 
 .hero-text {
@@ -115,8 +136,25 @@ body {
 .hero-bio {
     font-size: 1.1rem;
     color: var(--gray-600);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     line-height: 1.8;
+}
+
+.social-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.social-links a {
+    color: var(--gray-600);
+    font-size: 1.5rem;
+    transition: var(--transition);
+    padding: 0.5rem;
+}
+
+.social-links a:hover {
+    color: var(--accent);
+    transform: translateY(-3px);
 }
 
 .hero-image {
@@ -135,7 +173,7 @@ body {
 }
 
 .profile-image:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
 }
 
 /* Company Logos Trail */
@@ -155,41 +193,42 @@ body {
     width: 200px;
     height: 100%;
     z-index: 2;
+    pointer-events: none;
 }
 
 .company-logos-trail::before {
     left: 0;
-    background: linear-gradient(to right, var(--gray-100), transparent);
+    background: linear-gradient(to right, var(--gray-100) 0%, transparent 100%);
 }
 
 .company-logos-trail::after {
     right: 0;
-    background: linear-gradient(to left, var(--gray-100), transparent);
+    background: linear-gradient(to left, var(--gray-100) 0%, transparent 100%);
 }
 
 .company-logos-inner {
     display: flex;
-    animation: scroll 30s linear infinite;
-    gap: 4rem;
+    animation: scroll 40s linear infinite;
+    gap: 6rem;
     padding: 2rem 0;
+    align-items: center;
 }
 
 .company-logo-small {
-    height: 40px;
-    filter: grayscale(1);
-    opacity: 0.6;
+    height: 45px;
+    filter: grayscale(0.8);
+    opacity: 0.7;
     transition: var(--transition);
 }
 
 .company-logo-small:hover {
     filter: grayscale(0);
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
 /* Experience Section */
 .experience-timeline {
-    position: relative;
     max-width: 800px;
     margin: 0 auto;
     padding: 4rem 0;
@@ -198,7 +237,7 @@ body {
 .experience-item {
     background: var(--secondary);
     border-radius: 1rem;
-    padding: 2rem;
+    padding: 2.5rem;
     margin-bottom: 2rem;
     box-shadow: var(--shadow-md);
     transition: var(--transition);
@@ -212,7 +251,7 @@ body {
 .experience-header {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
     margin-bottom: 1.5rem;
 }
 
@@ -232,12 +271,90 @@ body {
 .company-name {
     font-size: 1rem;
     color: var(--gray-600);
+    margin-bottom: 0.25rem;
 }
 
 .experience-duration {
     font-size: 0.9rem;
     color: var(--accent);
     font-weight: 500;
+}
+
+.experience-description ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.experience-description li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--gray-600);
+}
+
+.experience-description li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* Achievements Section */
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.achievement-item {
+    background: var(--secondary);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.achievement-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.achievement-logo {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--secondary);
+    border-radius: 12px;
+    padding: 0.75rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.achievement-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.achievement-content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+}
+
+.achievement-description {
+    font-size: 0.95rem;
+    color: var(--gray-600);
+    line-height: 1.6;
 }
 
 /* Buzz Section */
@@ -274,62 +391,6 @@ body {
     display: block;
 }
 
-/* Achievements Section */
-.achievements-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.achievement-item {
-    background: var(--secondary);
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition);
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-}
-
-.achievement-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.achievement-logo {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--gray-100);
-    border-radius: 12px;
-    padding: 0.75rem;
-}
-
-.achievement-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.achievement-content h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-}
-
-.achievement-description {
-    font-size: 0.95rem;
-    color: var(--gray-600);
-    line-height: 1.6;
-}
-
 /* Contact Section */
 .contact-info {
     text-align: center;
@@ -360,6 +421,16 @@ footer {
 }
 
 /* Media Queries */
+@media (max-width: 1024px) {
+    .hero-content {
+        gap: 4rem;
+    }
+
+    .hero-text h1 {
+        font-size: 3rem;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-content {
         flex-direction: column-reverse;
@@ -380,17 +451,38 @@ footer {
         height: 250px;
     }
 
-    .achievement-item {
-        flex-direction: column;
-        text-align: center;
+    .social-links {
+        justify-content: center;
     }
 
-    .achievement-logo {
-        margin: 0 auto;
-    }
-
+    .achievement-item,
     .experience-header {
         flex-direction: column;
         text-align: center;
+        align-items: center;
+    }
+
+    .achievement-logo,
+    .company-logo {
+        margin: 0 auto;
+    }
+
+    .experience-description {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+
+    .hero-text h2 {
+        font-size: 1.25rem;
+    }
+
+    .profile-image {
+        width: 200px;
+        height: 200px;
     }
 }
